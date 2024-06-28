@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, Watch, h } from '@stencil/core';
 import { format } from '../../utils/utils';
 
 @Component({
@@ -21,6 +21,18 @@ export class MyComponent {
    * The last name
    */
   @Prop() last: string;
+
+  @Watch('first')
+  @Watch('middle')
+  @Watch('last')
+  updateFullName() {
+    this.fullName = this.getText()
+  }
+
+  /**
+   * The full name
+   */
+  @Prop({ mutable: true }) fullName: string;
 
   private getText(): string {
     return format(this.first, this.middle, this.last);
