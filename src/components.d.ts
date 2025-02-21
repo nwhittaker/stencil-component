@@ -22,6 +22,8 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MyGlobalCounter {
+    }
 }
 declare global {
     interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
@@ -36,9 +38,16 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyGlobalCounterElement extends Components.MyGlobalCounter, HTMLStencilElement {
+    }
+    var HTMLMyGlobalCounterElement: {
+        prototype: HTMLMyGlobalCounterElement;
+        new (): HTMLMyGlobalCounterElement;
+    };
     interface HTMLElementTagNameMap {
         "app-profile": HTMLAppProfileElement;
         "my-component": HTMLMyComponentElement;
+        "my-global-counter": HTMLMyGlobalCounterElement;
     }
 }
 declare namespace LocalJSX {
@@ -58,9 +67,12 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MyGlobalCounter {
+    }
     interface IntrinsicElements {
         "app-profile": AppProfile;
         "my-component": MyComponent;
+        "my-global-counter": MyGlobalCounter;
     }
 }
 export { LocalJSX as JSX };
@@ -69,6 +81,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-global-counter": LocalJSX.MyGlobalCounter & JSXBase.HTMLAttributes<HTMLMyGlobalCounterElement>;
         }
     }
 }

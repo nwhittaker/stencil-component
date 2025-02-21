@@ -7,29 +7,16 @@ import state from '../store';
 export class AppProfile {
 
   componentWillLoad() {
-    setInterval(() => state.seconds++, 1000);
+    setInterval(() => state.seconds += 3, 3_000); // 3s to exceed the store's internal cleanup debounce time.
   }
 
   render() {
     return (
-      <div>
-        <p>
-          <MyGlobalCounter />
-          <p>
-            Seconds: {state.seconds}
-            <br />
-            Squared Clicks: {state.squaredClicks}
-          </p>
-        </p>
-      </div>
+      <p>
+        Seconds: {state.seconds}
+        <br />
+        Squared Clicks: {state.squaredClicks}
+      </p>
     );
   }
 }
-
-const MyGlobalCounter = () => {
-  return (
-    <button onClick={() => state.clicks++}>
-      {state.clicks}
-    </button>
-  );
-};
