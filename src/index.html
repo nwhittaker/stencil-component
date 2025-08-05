@@ -9,6 +9,39 @@
     <script nomodule src="/build/stencil-component.js"></script>
   </head>
   <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <table>
+      <thead>
+        <tr>
+          <th>Visible</th>
+          <th>Hidden</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <my-shadow-component visible>
+              <p slot="content">My visible shadow component</p>
+            </my-shadow-component>
+          </td>
+          <td>
+            <my-shadow-component>
+              <p slot="content">My hidden shadow component</p>
+            </my-shadow-component>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <my-scoped-component visible>
+              <p slot="content">My visible scoped component</p>
+            </my-scoped-component>
+          </td>
+          <td>
+            <my-scoped-component>
+              <p slot="content">My hidden scoped component</p>
+            </my-scoped-component>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

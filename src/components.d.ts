@@ -20,6 +20,18 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MyScopedComponent {
+        /**
+          * @default false
+         */
+        "visible": boolean;
+    }
+    interface MyShadowComponent {
+        /**
+          * @default false
+         */
+        "visible": boolean;
+    }
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +40,22 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyScopedComponentElement extends Components.MyScopedComponent, HTMLStencilElement {
+    }
+    var HTMLMyScopedComponentElement: {
+        prototype: HTMLMyScopedComponentElement;
+        new (): HTMLMyScopedComponentElement;
+    };
+    interface HTMLMyShadowComponentElement extends Components.MyShadowComponent, HTMLStencilElement {
+    }
+    var HTMLMyShadowComponentElement: {
+        prototype: HTMLMyShadowComponentElement;
+        new (): HTMLMyShadowComponentElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-scoped-component": HTMLMyScopedComponentElement;
+        "my-shadow-component": HTMLMyShadowComponentElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +73,22 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MyScopedComponent {
+        /**
+          * @default false
+         */
+        "visible"?: boolean;
+    }
+    interface MyShadowComponent {
+        /**
+          * @default false
+         */
+        "visible"?: boolean;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-scoped-component": MyScopedComponent;
+        "my-shadow-component": MyShadowComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +96,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-scoped-component": LocalJSX.MyScopedComponent & JSXBase.HTMLAttributes<HTMLMyScopedComponentElement>;
+            "my-shadow-component": LocalJSX.MyShadowComponent & JSXBase.HTMLAttributes<HTMLMyShadowComponentElement>;
         }
     }
 }
