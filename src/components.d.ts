@@ -20,6 +20,12 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MyDialog {
+        /**
+          * @default false
+         */
+        "open": boolean;
+    }
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +34,15 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyDialogElement extends Components.MyDialog, HTMLStencilElement {
+    }
+    var HTMLMyDialogElement: {
+        prototype: HTMLMyDialogElement;
+        new (): HTMLMyDialogElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-dialog": HTMLMyDialogElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +60,15 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MyDialog {
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-dialog": MyDialog;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +76,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-dialog": LocalJSX.MyDialog & JSXBase.HTMLAttributes<HTMLMyDialogElement>;
         }
     }
 }
