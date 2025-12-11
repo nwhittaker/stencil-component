@@ -18,6 +18,9 @@
     "jsxFactory": "h",
     "skipLibCheck": true,
   },
+  "files": [
+    "node_modules/@esri/calcite-components/dist/types/components.d.ts"
+  ],
   "include": [
     "src"
   ],

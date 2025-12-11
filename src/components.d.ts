@@ -6,19 +6,47 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface MyInput {
+    }
+    interface MyLabel {
+        "for"?: string;
+    }
 }
 declare global {
+    interface HTMLMyInputElement extends Components.MyInput, HTMLStencilElement {
+    }
+    var HTMLMyInputElement: {
+        prototype: HTMLMyInputElement;
+        new (): HTMLMyInputElement;
+    };
+    interface HTMLMyLabelElement extends Components.MyLabel, HTMLStencilElement {
+    }
+    var HTMLMyLabelElement: {
+        prototype: HTMLMyLabelElement;
+        new (): HTMLMyLabelElement;
+    };
     interface HTMLElementTagNameMap {
+        "my-input": HTMLMyInputElement;
+        "my-label": HTMLMyLabelElement;
     }
 }
 declare namespace LocalJSX {
+    interface MyInput {
+    }
+    interface MyLabel {
+        "for"?: string;
+    }
     interface IntrinsicElements {
+        "my-input": MyInput;
+        "my-label": MyLabel;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "my-input": LocalJSX.MyInput & JSXBase.HTMLAttributes<HTMLMyInputElement>;
+            "my-label": LocalJSX.MyLabel & JSXBase.HTMLAttributes<HTMLMyLabelElement>;
         }
     }
 }

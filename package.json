@@ -36,5 +36,8 @@
     "puppeteer": "^21.9.0",
     "storybook": "^9.1.10"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@esri/calcite-components": "^2.13.2"
+  }
 }

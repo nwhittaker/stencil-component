@@ -1,4 +1,6 @@
-const config = {
+import type { StorybookConfig } from "@stencil/storybook-plugin";
+
+const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
@@ -6,6 +8,12 @@ const config = {
   framework: {
     name: "@stencil/storybook-plugin"
   },
+  staticDirs: [
+    {
+      from: '../node_modules/@esri/calcite-components/dist/calcite/assets',
+      to: '/assets',
+    },
+  ]
 };
 
 export default config;

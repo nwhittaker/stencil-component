@@ -6,4 +6,11 @@ expect.extend(matchers);
 
 export default createConfig({
   // Overwrite Playwright config options here
+  use: {
+    baseURL: 'http://localhost:6006/iframe.html',
+  },
+  webServer: {
+    command: 'npm run storybook',
+    url: 'http://localhost:6006',
+  },
 });
