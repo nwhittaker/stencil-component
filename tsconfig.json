@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
+    "allowUnreachableCode": true,
     "declaration": false,
     "experimentalDecorators": true,
     "lib": [
@@ -11,10 +11,29 @@
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strict": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "useDefineForClassFields": false,
+
+    // // When `true`, this allows use of `import` syntax such as `import x from 'xyz'`.
+    // "esModuleInterop": true,
+    // // Specify library type definitions to be included in the compilation.
+    // "lib": ["DOM", "DOM.Iterable", "ES2023"],
+    // // The module system to use for compilation.
+    // // Here, ES modules are targeted (ESNext) to enable top-level await and dynamic imports.
+    // "module": "esnext",
+    // // Respects package.json's "exports" conditions.
+    // "moduleResolution": "Bundler",
+    // // Allow importing from JSON files
+    // "resolveJsonModule": true,
+    // // This sets the output at the minimum version of JavaScript features that will be supported.
+    // "target": "ES2023",
+    // // Improves performance by checking only the .ts files you write
+    // // rather than the .d.ts files from the libraries you are using.
+    // "skipLibCheck": true,
   },
   "include": [
     "src"

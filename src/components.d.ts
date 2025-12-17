@@ -9,6 +9,11 @@ export namespace Components {
     interface AppProfile {
     }
     interface MyGlobalCounter {
+        /**
+          * @default false
+         */
+        "expanded": boolean;
+        "label": string;
     }
 }
 declare global {
@@ -33,6 +38,11 @@ declare namespace LocalJSX {
     interface AppProfile {
     }
     interface MyGlobalCounter {
+        /**
+          * @default false
+         */
+        "expanded"?: boolean;
+        "label"?: string;
     }
     interface IntrinsicElements {
         "app-profile": AppProfile;

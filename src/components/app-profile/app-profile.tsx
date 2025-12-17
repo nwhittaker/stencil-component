@@ -1,22 +1,26 @@
-import { Component, h } from '@stencil/core';
-import state from '../store';
+import { Component, ComponentInterface, Prop, h } from '@stencil/core';
+import type Store from '../../stores/store';
+import { storage } from '../../stores/decorator';
 
 @Component({
   tag: 'app-profile',
 })
 export class AppProfile {
 
+  @storage() declare private state: Store
+
   componentWillLoad() {
-    setInterval(() => state.seconds += 3, 3_000); // 3s to exceed the store's internal cleanup debounce time.
+    window.setInterval(() => this.state.seconds++, 1_000);
   }
 
   render() {
+    console.log('app-profile render')//, { seconds: this.state.seconds, clicks: this.state.clicks, squaredClicks: this.state.squaredClicks });
     return (
       <p>
-        Seconds: {state.seconds}
+        Seconds: {this.state.seconds}
         <br />
-        Squared Clicks: {state.squaredClicks}
+        Squared Clicks: {this.state.squaredClicks}
       </p>
-    );
+    )
   }
 }

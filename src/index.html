@@ -8,29 +8,9 @@
     <script type="module" src="/build/stencil-component.esm.js"></script>
     <script nomodule src="/build/stencil-component.js"></script>
 
-    <script type="text/javascript">
-      const registry = new FinalizationRegistry(heldValue => {
-        console.log(`Garbage collected "${heldValue}"`);
-      })
-
-      function toggle(tagName) {
-        const button = document.querySelector('button');
-        let element = document.querySelector(tagName);
-
-        if (element) {
-          button.textContent = `Create ${tagName}`;
-          element.remove();
-        } else {
-          button.textContent = `Destroy ${tagName}`;
-          element = document.createElement(tagName);
-          registry.register(element, tagName);
-          document.body.appendChild(element);
-        }
-      }
-    </script>
   </head>
   <body>
-    <button onclick="toggle('my-global-counter')">Create my-global-counter</button>
     <app-profile></app-profile>
+    <my-global-counter></my-global-counter>
   </body>
 </html>
