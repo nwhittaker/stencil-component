@@ -1,12 +1,12 @@
 import { ComponentInterface, forceUpdate, getElement } from "@stencil/core";
-import Store from "./store";
 import { watch } from "@arcgis/core/core/reactiveUtils";
+import Accessor from "@arcgis/core/core/Accessor";
 
-const globalStorage = new Store()
+const stores = new Map<string, [Accessor, Set<ComponentInterface>]>()
 
-watch(() => globalStorage.clicks, value => {
-  globalStorage.squaredClicks = value ** 2
-})
+interface Options {
+  group?: string | (() => string)
+}
 
 /**
  * IMPORTANT: The usual warnings apply around changing store state in the `componentDid*` hooks.
@@ -14,7 +14,7 @@ watch(() => globalStorage.clicks, value => {
  * @param type
  * @param param1
  */
-export function storage(): PropertyDecorator {
+export function storage(type: typeof Accessor, { group }: Options = {}): PropertyDecorator {
 
   const state = new WeakMap<ComponentInterface, { handle?: __esri.WatchHandle, willRender: boolean }>()
 
@@ -29,7 +29,8 @@ export function storage(): PropertyDecorator {
       } = target
 
     target.connectedCallback = function () {
-      Reflect.set(this, propertyKey, globalStorage)
+      const store = linkStore(this)
+      Reflect.set(this, propertyKey, store)
 
       // Force an update if reconnecting the element didn't re-render it.
       getElement(this).componentOnReady().then(() => {
@@ -69,6 +70,41 @@ export function storage(): PropertyDecorator {
       disconnectedCallback?.call(this)
       stopWatchingStorage(this)
       state.delete(this)
+      unlinkStore(this)
+    }
+  }
+
+  function getStoreKey(target: ComponentInterface) {
+    const id = [ type.name ]
+
+    if (group) {
+      id.push(typeof group === 'function' ? group.call(target) : group)
+    }
+
+    return id.join('/')
+  }
+
+  function linkStore(target: ComponentInterface) {
+    const key = getStoreKey(target),
+      [ store, refs ] = stores.get(key) ?? [ new type(), new Set() ]
+
+    console.log('@storage() linkStore', { target, key, create: !stores.has(key) })
+
+    refs.add(target)
+    stores.set(key, [ store, refs ])
+
+    return store
+  }
+
+  function unlinkStore(target: ComponentInterface) {
+    const key = getStoreKey(target),
+      [ store, refs ] = stores.get(key)!
+
+    refs.delete(target)
+
+    if (refs.size === 0) {
+      store.destroy()
+      stores.delete(key)
     }
   }
 
@@ -81,11 +117,11 @@ export function storage(): PropertyDecorator {
   }
 
   function startWatchingStorage(target: ComponentInterface, render = () => {}) {
-    let jsx: unknown
-    let shouldRender = true
+    let jsx: unknown,
+      shouldRender = true
 
     const getValue = () => {
-        console.log('@storage() getValue', { target, firstRender: shouldRender })
+        console.log('@storage() getValue', getStoreKey(target), { target, firstRender: shouldRender })
         // Only render if we're in that phase of the lifecycle. Otherwise the callback will kick off an update.
         if (shouldRender) {
           shouldRender = false
@@ -95,7 +131,7 @@ export function storage(): PropertyDecorator {
         }
       },
       callback = () => {
-        console.log('@storage() callback', { target, shouldRender: shouldUpdate(target) })
+        console.log('@storage() callback', getStoreKey(target),{ target, shouldRender: shouldUpdate(target) })
         // Only kick off an update if one hasn't already begun.
         if (shouldUpdate(target)) {
           forceUpdate(target)

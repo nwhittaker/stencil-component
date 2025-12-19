@@ -7,12 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppProfile {
+        "group"?: string;
     }
     interface MyGlobalCounter {
         /**
           * @default false
          */
         "expanded": boolean;
+        "group"?: string;
         "label": string;
     }
 }
@@ -36,12 +38,14 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppProfile {
+        "group"?: string;
     }
     interface MyGlobalCounter {
         /**
           * @default false
          */
         "expanded"?: boolean;
+        "group"?: string;
         "label"?: string;
     }
     interface IntrinsicElements {
