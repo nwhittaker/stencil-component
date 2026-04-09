@@ -12,6 +12,7 @@ export class AppProfile {
   @store(Store) declare private state: Store // Global store
   @store(Store) declare private state2: Store // Duplicated global store
   @store(Store, { group: prop('group') }) declare private state3: Store // Grouped store
+  private local = new Store()
 
   @Prop() group?: string
 
