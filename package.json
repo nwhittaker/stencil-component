@@ -39,13 +39,13 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@esri/calcite-components": "^2.8.0",
-    "@stencil/core": "^4.17.1",
-    "@types/jest": "^29.5.6",
-    "@types/node": "^16.18.11",
+    "@esri/calcite-components": "^2.13.2",
+    "@stencil/core": "^4.44.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^16.18.126",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
-    "puppeteer": "^21.9.0"
+    "puppeteer": "^21.11.0"
   },
   "license": "MIT"
 }
