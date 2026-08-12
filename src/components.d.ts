@@ -7,21 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyComponent {
-        /**
-          * The first name
-          * @default ''
-         */
-        "first": string;
-        /**
-          * The last name
-          * @default ''
-         */
-        "last": string;
-        /**
-          * The middle name
-          * @default ''
-         */
-        "middle": string;
     }
 }
 declare global {
@@ -37,31 +22,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MyComponent {
-        /**
-          * The first name
-          * @default ''
-         */
-        "first"?: string;
-        /**
-          * The last name
-          * @default ''
-         */
-        "last"?: string;
-        /**
-          * The middle name
-          * @default ''
-         */
-        "middle"?: string;
     }
-
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
-    }
-
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "my-component": MyComponent;
     }
 }
 export { LocalJSX as JSX };
